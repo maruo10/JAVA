@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <title>ババ抜き - result</title>
+
+        <!-- materialize -->
+        <!-- https://materializecss.com/buttons.html -->
+        <!-- Compiled and minified CSS -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+        <!-- Compiled and minified JavaScript -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+
+        <!-- Fonts -->
+        <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
+
+    </head>
+    <body>
+        <div class="container">
+            <h2>ゲーム終了！</h2>
+            <h4><span th:text="${members.get(winner).getName()}"></span>さんの勝ちです。</h4>
+
+            <div class="row" th:each="member, iterStat : ${members}">
+                <div class="col s2">
+                    <span th:text="${member.getName()}">name</span>
+                </div>
+                <div class="col s10">
+                    <span th:each="c : ${membersCard[iterStat.index]}">
+                        <span th:text="${c}">xxx</span>
+                        &nbsp;
+                    </span>
+                </div>
+            </div>
+
+
+
+            <hr />
+            <a href="/" th:href="@{/}" class="waves-effect waves-light btn">Homeへ</a>
+        </div>
+    </body>
+</html>

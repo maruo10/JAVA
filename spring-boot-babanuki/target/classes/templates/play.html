@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <title>ババ抜き - play</title>
+
+        <!-- materialize -->
+        <!-- https://materializecss.com/buttons.html -->
+        <!-- Compiled and minified CSS -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+        <!-- Compiled and minified JavaScript -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+
+        <!-- Fonts -->
+        <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
+
+    </head>
+    <body>
+        <div class="container">
+            <h2>ゲーム中です</h2>
+            <ul>
+                <li>ゲームID = <span th:text="${game.getId()}">xxx</span></li>
+                <li>ゲーム回数 = <span th:text="${game.getGameNum()}">xxx</span></li>
+                <li>メンバー数 = <span th:text="${members.size()}">xxx</span></li>
+                <li>現在進行中のゲーム番号 = <span th:text="${game.getNowGame()}">xxx</span></li>
+                <li>現在対象のメンバー番号 = <span th:text="${game.getNowMember()}">xxx</span></li>
+            </ul>
+
+            <hr />
+            <div class="row" th:each="member, iterStat : ${members}">
+                <div class="col s2">
+                    <span th:text="${member.getName()}">name</span>
+                </div>
+                <div class="col s10">
+                    <span th:each="c : ${membersCard[iterStat.index]}">
+                        <span th:text="${c}" th:if="${c.equals(card) && iterStat.index != now}" style="color:red; text-decoration:line-through">xxx</span>
+                        <span th:text="${c}" th:if="${c.equals(card) && iterStat.index == now}" style="color:red; ">xxx</span>
+                        <span th:text="${c}" th:unless="${c.equals(card)}">xxx</span>
+                        &nbsp;
+                    </span>
+                </div>
+            </div>
+
+
+            <hr />
+            <p>
+                <span th:text="${nowMember.getName()}"></span>
+                が
+                <span th:text="${beforeMember.getName()}"></span>
+                の
+                カード「<span th:text="${card}"></span>」
+                を引きました。
+            </p>
+
+            <hr />
+            <a href="play.html" th:href="@{/play(gameId=${game.id})}" class="waves-effect waves-light btn">次へ</a>
+        </div>
+    </body>
+</html>
